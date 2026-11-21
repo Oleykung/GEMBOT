@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: granado-espada-boss-tracker
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn wsgi:application --bind 0.0.0.0:$PORT --workers 2"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+# ถ้าจะรันบอท Discord + เว็บ Realtime บน Render แบบเสียเงิน ใช้ Worker:
+#  - type: worker
+#    name: discord-bot
+#    env: python
+#    buildCommand: "pip install -r requirements.txt"
+#    startCommand: "python bot.py"
+#    envVars:
+#      - key: DISCORD_TOKEN
+#        sync: false
+#      - key: ALERT_CHANNEL_ID
+#        sync: false
